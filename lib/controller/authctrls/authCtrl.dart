@@ -111,6 +111,7 @@ class AuthCtrl extends GetxController {
 
   getDeviceData() async {
     var token = await messaging.FirebaseMessaging.instance.getToken();
+    print(token);
 
     if (Platform.isAndroid) {
       deviceType = 'android';

@@ -20,12 +20,13 @@ import 'package:uber_ui/view/insert%20phone%20number/InsertPhoneNumber.dart';
 import 'package:uber_ui/view/pickup%20points/mapScreen.dart';
 import 'package:uber_ui/view/pickup%20points/pickuppoint.dart';
 import 'package:uber_ui/view/profile/profile.dart';
-import 'package:uber_ui/view/start%20screen/StartScreen.dart';
 import 'package:uber_ui/view/choosephone/choosePhone.dart';
 import 'package:uber_ui/view/start%20screen/loadingScreen.dart';
 import 'package:uber_ui/view/terms%20and%20privacy%20screen/termsandreviewprivacynotice.dart';
 
 import 'controller/authctrls/authCtrl.dart';
+
+initNotifs() async {}
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
