@@ -1,10 +1,12 @@
 import 'dart:async';
 
 import 'package:get/get.dart';
+import 'package:google_geocoding/google_geocoding.dart' as gc;
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
 
 class MapController extends GetxController {
+  int cur_widget = 0;
   @override
   void onInit() async {
     super.onInit();
@@ -17,9 +19,12 @@ class MapController extends GetxController {
   }
 
   Location location = new Location();
-  LocationData? _locationData;
+  LocationData? locationData;
   bool? _serviceEnabled;
   PermissionStatus? _permissionGranted;
+  gc.GoogleGeocoding geocoding =
+      gc.GoogleGeocoding('AIzaSyAjfITB9U_n7TWqVQLRZunTQb0NZetwzoc');
+  var address;
   Future<void> initialize() async {
     // LocationData? _locationData;
     _serviceEnabled = await location.serviceEnabled();
@@ -38,7 +43,12 @@ class MapController extends GetxController {
       }
     }
 
-    _locationData = await location.getLocation();
+    locationData = await location.getLocation();
+    var result = await geocoding.geocoding.getReverse(
+        gc.LatLon(locationData!.latitude!, locationData!.longitude!),
+        resultType: ['route']);
+    address = result!.results!.first.formattedAddress;
+    print(address);
     update();
   }
 
@@ -64,7 +74,7 @@ class MapController extends GetxController {
   Future<void> getoMyLocation() async {
     final GoogleMapController mycontroller = await controller.future;
     mycontroller.animateCamera(CameraUpdate.newCameraPosition(
-        getDetails(lon: _locationData!.longitude, lat: _locationData!.latitude)
+        getDetails(lon: locationData!.longitude, lat: locationData!.latitude)
         //   CameraPosition(
         // bearing: 192.8334901395799,
         // target: LatLng(lat, lon),

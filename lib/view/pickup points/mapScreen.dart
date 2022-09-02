@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:google_place/google_place.dart';
 import 'package:uber_ui/controller/mapController.dart';
+import 'package:uber_ui/view/pickup%20points/widgets/selectcar.dart';
 
 import '../../controller/placesController/placesController.dart';
 import '../../utils/mapUtils.dart';
@@ -42,41 +43,47 @@ class MapScreen extends StatelessWidget {
           ))
     };
     return Scaffold(
-      body: GoogleMap(
-        // zoomControlsEnabled: true,
-        onMapCreated: (GoogleMapController c) async {
-          Set<Marker> _markers = Set();
+      body: Stack(
+        children: [
+          GoogleMap(
+            // zoomControlsEnabled: true,
+            onMapCreated: (GoogleMapController c) async {
+              Set<Marker> _markers = Set();
 
-          _markers = Set.from(
-            markers,
-          );
-          // mapCtrl.controller.complete(c);
-          // mapCtrl.controller.
+              _markers = Set.from(
+                markers,
+              );
+              // mapCtrl.controller.complete(c);
+              // mapCtrl.controller.
 
-          Future.delayed(Duration(milliseconds: 2000), () {
-            c.animateCamera(CameraUpdate.newLatLngBounds(
-                MapUtils.boundsFromLatLngList(
-                    _markers.map((loc) => loc.position as LatLng).toList()),
-                2));
-          });
-          placeCtrl.getPolyline();
-          placeCtrl.polylineCoordinates.forEach((element) {
-            printInfo(
-                info: element.latitude.toString() +
-                    " " +
-                    element.longitude.toString());
-          });
-          // await placeCtrl.addPolyLine();
-          // await placeCtrl
-        },
-        initialCameraPosition: CameraPosition(
-            zoom: 14.4267,
-            target: LatLng(
-              start!.geometry!.location!.lat!,
-              start!.geometry!.location!.lng!,
-            )),
-        markers: Set.from(markers),
-        polylines: Set.from(placeCtrl.polylines),
+              Future.delayed(Duration(milliseconds: 2000), () {
+                c.animateCamera(CameraUpdate.newLatLngBounds(
+                    MapUtils.boundsFromLatLngList(
+                        _markers.map((loc) => loc.position as LatLng).toList()),
+                    2));
+              });
+              placeCtrl.getPolyline();
+              placeCtrl.polylineCoordinates.forEach((element) {
+                printInfo(
+                    info: element.latitude.toString() +
+                        " " +
+                        element.longitude.toString());
+              });
+              // await placeCtrl.addPolyLine();
+              // await placeCtrl
+            },
+            initialCameraPosition: CameraPosition(
+                zoom: 14.4267,
+                target: LatLng(
+                  start!.geometry!.location!.lat!,
+                  start!.geometry!.location!.lng!,
+                )),
+            markers: Set.from(markers),
+            polylines: Set.from(placeCtrl.polylines),
+          ),
+          DraggableScrollableSheet(
+              builder: (context, controller) => SelectCar())
+        ],
       ),
     );
   }

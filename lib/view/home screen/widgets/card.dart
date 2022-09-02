@@ -38,12 +38,8 @@ class WelcomeToModeCard extends StatelessWidget {
             borderRadius: BorderRadius.only(
                 topRight: Radius.circular(10),
                 bottomRight: Radius.circular(10)),
-            child: Image.asset(
-              'assets/drive.jpg',
-              fit: BoxFit.cover,
-              height: 80,
-              width: Get.width / 5,
-            ),
+            child: Image.asset('assets/drive.jpg',
+                fit: BoxFit.cover, height: 80, width: Get.width / 7),
           ))
         ],
       ),

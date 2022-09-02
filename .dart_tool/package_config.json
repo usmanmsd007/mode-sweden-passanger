@@ -152,6 +152,12 @@
       "languageVersion": "2.15"
     },
     {
+      "name": "google_geocoding",
+      "rootUri": "file:///home/sirwaleed/snap/flutter/common/flutter/.pub-cache/hosted/pub.dartlang.org/google_geocoding-0.2.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
       "name": "google_maps_flutter",
       "rootUri": "file:///home/sirwaleed/snap/flutter/common/flutter/.pub-cache/hosted/pub.dartlang.org/google_maps_flutter-2.1.12",
       "packageUri": "lib/",
@@ -458,7 +464,7 @@
       "languageVersion": "2.17"
     }
   ],
-  "generated": "2022-09-02T05:23:18.082338Z",
+  "generated": "2022-09-02T11:09:55.672253Z",
   "generator": "pub",
   "generatorVersion": "2.18.0"
 }

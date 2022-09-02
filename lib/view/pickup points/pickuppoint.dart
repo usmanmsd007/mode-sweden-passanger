@@ -12,7 +12,9 @@ import 'package:uber_ui/view/pickup%20points/widgets/pickuppointwidgets.dart';
 import '../../widgets/mywidgets.dart';
 
 class PickUpPoint extends StatelessWidget {
-  PickUpPoint({Key? key}) : super(key: key);
+  PickUpPoint({
+    Key? key,
+  }) : super(key: key);
   var map = Get.find<MapController>();
   var pickupctrl = Get.find<PickUpController>();
   var placeCtrl = Get.find<PlacesController>();
@@ -24,7 +26,7 @@ class PickUpPoint extends StatelessWidget {
       body: Stack(
         children: [
           GoogleMap(
-              mapType: MapType.hybrid,
+              mapType: MapType.normal,
               initialCameraPosition: map.kGooglePlex.value,
               onMapCreated: (GoogleMapController controller) {
                 if (map.controller.isCompleted == false) {
@@ -81,9 +83,8 @@ class PickUpPoint extends StatelessWidget {
                                                 .predictions[i].description!;
                                         placeCtrl.predictions.value = [];
                                         placeCtrl.changeExpand(false);
-                                        if (placeCtrl.startingPoint != null &&
-                                            placeCtrl.firstSearchCtrl.text
-                                                .isNotEmpty) {
+                                        if (placeCtrl
+                                            .firstSearchCtrl.text.isNotEmpty) {
                                           Future.delayed(Duration(seconds: 2))
                                               .whenComplete(
                                                   () => Get.to(() => MapScreen(
@@ -131,6 +132,21 @@ class PickUpPoint extends StatelessWidget {
               ),
             ),
           ),
+          placeCtrl.predictions.length < 1
+              ? Positioned(
+                  left: Get.width * 0.3,
+                  right: Get.width * 0.3,
+                  bottom: Get.height * 0.02,
+                  child: ElevatedButton(
+                    style: ButtonStyle(
+                        backgroundColor:
+                            MaterialStateProperty.all(Colors.black),
+                        padding: MaterialStateProperty.all(
+                            EdgeInsets.symmetric(horizontal: Get.width * 0.1))),
+                    onPressed: () {},
+                    child: Text('Done'),
+                  ))
+              : SizedBox(),
         ],
       ),
     ));

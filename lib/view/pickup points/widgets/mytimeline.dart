@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:uber_ui/controller/mapController.dart';
 import 'package:uber_ui/view/pickup%20points/widgets/searchBox.dart';
 
 import '../../../controller/pickupcontroller.dart';
@@ -9,6 +10,7 @@ class MyTimeLne extends StatelessWidget {
   MyTimeLne({
     Key? key,
   }) : super(key: key);
+  var mapController = Get.find<MapController>();
   var placesCtrl = Get.find<PlacesController>();
 
   var ctrl = Get.find<PickUpController>();

@@ -1,4 +1,5 @@
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -23,10 +24,34 @@ import 'package:uber_ui/view/profile/profile.dart';
 import 'package:uber_ui/view/choosephone/choosePhone.dart';
 import 'package:uber_ui/view/start%20screen/loadingScreen.dart';
 import 'package:uber_ui/view/terms%20and%20privacy%20screen/termsandreviewprivacynotice.dart';
-
 import 'controller/authctrls/authCtrl.dart';
 
-initNotifs() async {}
+initNotifs() async {
+  FirebaseMessaging messaging = FirebaseMessaging.instance;
+
+  FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+    print('Got a message whilst in the foreground!');
+    Get.snackbar(message.notification!.title!, message.notification!.body!);
+  });
+
+  NotificationSettings settings = await messaging.requestPermission(
+    alert: true,
+    announcement: false,
+    badge: true,
+    carPlay: false,
+    criticalAlert: false,
+    provisional: false,
+    sound: true,
+  );
+
+  if (settings.authorizationStatus == AuthorizationStatus.authorized) {
+    print('User granted permission');
+  } else if (settings.authorizationStatus == AuthorizationStatus.provisional) {
+    print('User granted provisional permission');
+  } else {
+    print('User declined or has not accepted permission');
+  }
+}
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -36,7 +61,7 @@ void main() async {
   }
   MyBindings().dependencies();
   var authctrl = Get.find<AuthCtrl>();
-
+  initNotifs();
   runApp(const MyApp());
 }
 
@@ -151,6 +176,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: ThemeData(
+        primaryColor: Colors.black,
         primarySwatch: Colors.blue,
       ),
       home: LoadingScreen(),
