@@ -2,10 +2,13 @@ import 'dart:convert';
 
 import 'package:http/http.dart' as http;
 
-Future signIn(
-    {required String username,
-    required String password,
-    required String id}) async {
+Future signIn({
+  required String device_token,
+  required String device_id,
+  required String device_type,
+  required String username,
+  required String password,
+}) async {
   var request = http.MultipartRequest(
       'POST', Uri.parse('https://modesweden.se/api/user/oauth/token'));
   request.fields.addAll({
@@ -13,6 +16,9 @@ Future signIn(
     'client_secret': 'Aq0ICvjI6IR73OeJ4faaf3ErMLmLZVBTkrnnIdDB',
     'password': password,
     'username': username,
+    'device_type': device_type,
+    'device_token': device_token,
+    'device_id': device_id,
   });
 
   http.StreamedResponse response = await request.send();
@@ -57,11 +63,7 @@ Future signIn(
 // }
 
 Future<bool> signUp(
-    {required String device_id,
-    required String device_token,
-    required String device_type,
-    required String login_by,
-    required String first_name,
+    {required String first_name,
     required String last_name,
     required String email,
     required String password,
@@ -75,11 +77,6 @@ Future<bool> signUp(
       'last_name': last_name,
       'password': password,
       'email': email,
-      'device_type': device_type,
-      'login_by': 'manual',
-      'device_token': device_token,
-      'device_id': device_id,
-      // 'login_by': 'manual',
     });
 
     http.StreamedResponse response = await request.send();

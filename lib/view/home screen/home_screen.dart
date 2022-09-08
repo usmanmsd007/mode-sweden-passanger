@@ -11,15 +11,12 @@ import 'package:uber_ui/view/home%20screen/widgets/riderbox.dart';
 import 'package:uber_ui/view/pickup%20points/pickuppoint.dart';
 import 'package:uber_ui/view/profile/profile.dart';
 import 'package:uber_ui/view/savedplaces/savedPlaces.dart';
-import '../../controller/profileScreenCtrl/profileScreenCtrl.dart';
 import '../../widgets/mywidgets.dart';
 import '../Package Screen/packages_screen.dart';
 
 class HomeScreen extends StatelessWidget {
   HomeScreen({Key? key}) : super(key: key);
-  var ctrl = Get.find<MapController>();
-  // var authctrl = Get.find<AuthCtrl>();
-  var profilectrl = Get.find<ProfileScreenController>();
+  var ctrl = Get.find<HomeScreenController>();
 
   @override
   Widget build(BuildContext context) {
@@ -72,7 +69,9 @@ class HomeScreen extends StatelessWidget {
               ),
               WhereToGo(
                 onTextFieldTap: () {
-                  Get.to(() => PickUpPoint());
+                  Get.to(
+                    () => PickUpPoint(),
+                  );
                 },
                 onNowTap: () {
                   Get.bottomSheet(MyBottomSheet());

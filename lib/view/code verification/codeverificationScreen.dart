@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_verification_code/flutter_verification_code.dart';
 // import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:uber_ui/controller/authctrls/otp.dart';
 import 'package:uber_ui/public/public.dart';
 import 'package:uber_ui/view/authScreens/registerScreen.dart';
 import 'package:uber_ui/view/code%20verification/widgets/digitBox.dart';
@@ -11,7 +12,7 @@ import '../../widgets/mywidgets.dart';
 
 class CodeVerification extends StatelessWidget {
   CodeVerification({Key? key}) : super(key: key);
-  var authctrl = Get.find<AuthCtrl>();
+  var authctrl = Get.find<OtpVerificationCtrl>();
 
   @override
   Widget build(BuildContext context) {

@@ -61,9 +61,14 @@ class SignInScreen extends StatelessWidget {
                 color: blue,
                 text: 'Sign In',
                 onpress: () async {
-                  await authctrl.signInToMode(
-                      email: authctrl.emailCtrlSi.text,
-                      password: authctrl.passwordCtrlSi.text);
+                  await authctrl.getDeviceData().whenComplete(() async {
+                    await authctrl.signInToMode(
+                        device_id: authctrl.deviceid,
+                        device_token: authctrl.devicetoken,
+                        device_type: authctrl.deviceType,
+                        email: authctrl.emailCtrlSi.text,
+                        password: authctrl.passwordCtrlSi.text);
+                  });
                 },
               ),
               SizedBox(

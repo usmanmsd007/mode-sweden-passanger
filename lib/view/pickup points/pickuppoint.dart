@@ -1,11 +1,11 @@
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+
 import 'package:uber_ui/controller/mapController.dart';
 import 'package:uber_ui/controller/pickupcontroller.dart';
-import 'package:uber_ui/controller/placesController/placesController.dart';
 import 'package:uber_ui/public/public.dart';
-import 'package:uber_ui/view/pickup%20points/mapScreen.dart';
+import 'package:uber_ui/view/pickup%20points/polylineScreen.dart';
 import 'package:uber_ui/view/pickup%20points/widgets/mytimeline.dart';
 import 'package:uber_ui/view/pickup%20points/widgets/pickuppointwidgets.dart';
 
@@ -15,7 +15,6 @@ class PickUpPoint extends StatelessWidget {
   PickUpPoint({Key? key}) : super(key: key);
   var map = Get.find<MapController>();
   var pickupctrl = Get.find<PickUpController>();
-  var placeCtrl = Get.find<PlacesController>();
 
   @override
   Widget build(BuildContext context) {
@@ -23,23 +22,22 @@ class PickUpPoint extends StatelessWidget {
         child: Scaffold(
       body: Stack(
         children: [
-          GoogleMap(
-              mapType: MapType.hybrid,
-              initialCameraPosition: map.kGooglePlex.value,
-              onMapCreated: (GoogleMapController controller) {
-                if (map.controller.isCompleted == false) {
-                  map.controller.complete(controller);
-                }
-              }),
+          // Obx(
+          //   () => GoogleMap(
+          //       mapType: MapType.hybrid,
+          //       initialCameraPosition: map.kGooglePlex.value,
+          //       markers: Set.from(pickupctrl.markers),
+          //       onMapCreated: (GoogleMapController controller) {
+          //         if (map.controller.isCompleted == false) {
+          //           map.controller.complete(controller);
+          //         }
+          //       }),
+          // ),
           Obx(
-            //{"key": 'value'}
-            //
-            () => placeCtrl.predictions.isEmpty
+            () => pickupctrl.predictions.isEmpty
                 ? Container()
                 : DraggableScrollableSheet(
-                    // snap: true,
-                    // expand: placeCtrl.expand.value,
-                    initialChildSize: 0.2,
+                    initialChildSize: 0.77,
                     minChildSize: 0.2,
                     maxChildSize: 0.77,
                     builder: (contxt, _controller) {
@@ -48,7 +46,7 @@ class PickUpPoint extends StatelessWidget {
                         child: Obx(
                           () => ListView.builder(
                             controller: _controller,
-                            itemCount: placeCtrl.predictions.length,
+                            itemCount: pickupctrl.predictions.length,
                             itemBuilder: (c, i) => Padding(
                               padding: const EdgeInsets.all(2.0),
                               child: Container(
@@ -56,39 +54,41 @@ class PickUpPoint extends StatelessWidget {
                                 child: ListTile(
                                   onTap: () async {
                                     final placeId =
-                                        placeCtrl.predictions[i].placeId!;
-                                    final details = await placeCtrl
+                                        pickupctrl.predictions[i].placeId!;
+                                    final details = await pickupctrl
                                         .googlePlace.details
                                         .get(placeId);
-                                    printInfo(
-                                        info: details!.result!.name.toString() +
-                                            details.result!.toString());
                                     if (details != null &&
                                         details.result != null) {
-                                      if (placeCtrl.startFocusNode.hasFocus) {
-                                        placeCtrl.startingPoint =
+                                      if (pickupctrl.startFocusNode.hasFocus) {
+                                        pickupctrl.startingPoint =
                                             details.result;
-                                        placeCtrl.firstSearchCtrl.text =
-                                            placeCtrl
+                                        pickupctrl.firstSearchCtrl.text =
+                                            pickupctrl
                                                 .predictions[i].description!;
-                                        placeCtrl.predictions.value = [];
-                                        placeCtrl.changeExpand(false);
-                                        // placeCtrl.update();
+                                        pickupctrl.predictions.value = [];
+                                        pickupctrl.changeExpand(false);
+                                        // pickupctrl.update();
                                       } else {
-                                        placeCtrl.endPoint = details.result;
-                                        placeCtrl.secondSearchCtrl.text =
-                                            placeCtrl
+                                        pickupctrl.endPoint = details.result;
+                                        pickupctrl.secondSearchCtrl.text =
+                                            pickupctrl
                                                 .predictions[i].description!;
-                                        placeCtrl.predictions.value = [];
-                                        placeCtrl.changeExpand(false);
-                                        if (placeCtrl.startingPoint != null &&
-                                            placeCtrl.firstSearchCtrl.text
+                                        pickupctrl.predictions.value = [];
+                                        pickupctrl.changeExpand(false);
+                                        if (pickupctrl.startingPoint != null &&
+                                            pickupctrl.firstSearchCtrl.text
                                                 .isNotEmpty) {
                                           Future.delayed(Duration(seconds: 2))
                                               .whenComplete(
-                                                  () => Get.to(() => MapScreen(
-                                                      // start: placeCtrl.startingPoint, end: placeCtrl.endPoint,
-                                                      )));
+                                            () => Get.to(
+                                              () => MapScreen(),
+                                              arguments: [
+                                                pickupctrl.startingPoint,
+                                                pickupctrl.endPoint,
+                                              ],
+                                            ),
+                                          );
                                         }
                                       }
                                     }
@@ -98,7 +98,8 @@ class PickUpPoint extends StatelessWidget {
                                     color: black,
                                   ),
                                   title: TitleText(
-                                    text: placeCtrl.predictions[i].description!,
+                                    text:
+                                        pickupctrl.predictions[i].description!,
                                   ),
                                 ),
                               ),

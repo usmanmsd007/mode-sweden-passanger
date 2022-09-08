@@ -9,7 +9,6 @@ Future sendOtp(
     required String deviceToken,
     required String phone,
     required String countryCode}) async {
-  
   var request = http.MultipartRequest(
       'POST', Uri.parse('https://modesweden.se/api/user/verify/phone'));
   request.fields.addAll({
@@ -17,22 +16,20 @@ Future sendOtp(
     'device_id': deviceId,
     'device_token': deviceToken,
     'mobile': phone,
-    'country_code': countryCode,
+    'country_code': countryCode
   });
-
-  // request.headers.addAll(headers);
 
   http.StreamedResponse response = await request.send();
 
   if (response.statusCode == 200) {
     var data = await response.stream.bytesToString();
-    // print(await response.stream.bytesToString());
-    print(await jsonDecode(data.toString()));
-
-    var model = await jsonDecode(data.toString());
-    return model;
+    return jsonDecode(data);
   } else {
-    return response.statusCode;
     print(response.reasonPhrase);
   }
+
+  // request.headers.addAll(headers);
+
+  // var data = await response.stream.bytesToString();
+  // print(await response.stream.bytesToString());
 }

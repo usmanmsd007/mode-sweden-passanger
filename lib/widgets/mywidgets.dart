@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:uber_ui/controller/pickupcontroller.dart';
-import 'package:uber_ui/controller/placesController/placesController.dart';
 import 'package:uber_ui/public/public.dart';
 
 import '../controller/home_screen_controller.dart';

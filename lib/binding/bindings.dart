@@ -7,13 +7,13 @@ import 'package:uber_ui/controller/home_screen_controller.dart';
 import 'package:uber_ui/controller/invitefamilycontroller.dart';
 import 'package:uber_ui/controller/mapController.dart';
 import 'package:uber_ui/controller/pickupcontroller.dart';
-import 'package:uber_ui/controller/placesController/placesController.dart';
 import 'package:uber_ui/controller/profileScreenCtrl/profileScreenCtrl.dart';
 import 'package:uber_ui/controller/ride_check_controller.dart';
 import 'package:uber_ui/controller/send_package_ctrl.dart';
 import 'package:uber_ui/controller/termsandreviewprivacycontroller.dart';
 import 'package:uber_ui/controller/verify_trips_controller.dart';
 
+import '../controller/authctrls/otp.dart';
 import '../controller/choosenumberctrl.dart';
 import '../controller/insertPhoneController.dart';
 
@@ -21,7 +21,7 @@ class MyBindings implements Bindings {
   @override
   void dependencies() {
     Get.lazyPut(() => ChooseNumberController());
-    Get.lazyPut(() => PlacesController(), fenix: true);
+    Get.lazyPut(() => OtpVerificationCtrl());
     Get.lazyPut(() => AuthCtrl(), fenix: true);
 
     Get.lazyPut(() => ProfileScreenController(), fenix: true);

@@ -3,13 +3,12 @@ import 'package:get/get.dart';
 import 'package:uber_ui/view/pickup%20points/widgets/searchBox.dart';
 
 import '../../../controller/pickupcontroller.dart';
-import '../../../controller/placesController/placesController.dart';
 
 class MyTimeLne extends StatelessWidget {
   MyTimeLne({
     Key? key,
   }) : super(key: key);
-  var placesCtrl = Get.find<PlacesController>();
+  var pickupctrl = Get.find<PickUpController>();
 
   var ctrl = Get.find<PickUpController>();
   @override
@@ -31,17 +30,17 @@ class MyTimeLne extends StatelessWidget {
                     children: [
                       FirstSearchBox(
                           suffixontap: () {
-                            placesCtrl.predictions.value = [];
-                            placesCtrl.predictions.refresh();
-                            placesCtrl.firstSearchCtrl.clear();
-                            placesCtrl.update();
+                            pickupctrl.predictions.value = [];
+                            pickupctrl.predictions.refresh();
+                            pickupctrl.firstSearchCtrl.clear();
+                            pickupctrl.update();
                           },
-                          focusNode: placesCtrl.startFocusNode,
-                          ctrl: placesCtrl.firstSearchCtrl,
-                          onChange: (p0) => placesCtrl.autoComplete(p0, true),
+                          focusNode: pickupctrl.startFocusNode,
+                          ctrl: pickupctrl.firstSearchCtrl,
+                          onChange: (p0) => pickupctrl.autoComplete(p0, true),
                           ontap: () {
                             // ctrl.setTimelineIcon(true);
-                            placesCtrl.changeExpand(true);
+                            pickupctrl.changeExpand(true);
                           },
                           text: 'Choose a pick-up point',
                           val: false),
@@ -53,13 +52,13 @@ class MyTimeLne extends StatelessWidget {
                         // enabled: placesCtrl.firstSearchCtrl.text.isNotEmpty &&
                         //     placesCtrl.startingPoint != null,
                         suffixontap: () {
-                          placesCtrl.predictions.value = [];
-                          placesCtrl.predictions.refresh();
-                          placesCtrl.secondSearchCtrl.clear();
+                          pickupctrl.predictions.value = [];
+                          pickupctrl.predictions.refresh();
+                          pickupctrl.secondSearchCtrl.clear();
                         },
-                        focusNode: placesCtrl.endFocusNode,
-                        ctrl: placesCtrl.secondSearchCtrl,
-                        onChange: (p0) => placesCtrl.autoComplete(p0, false),
+                        focusNode: pickupctrl.endFocusNode,
+                        ctrl: pickupctrl.secondSearchCtrl,
+                        onChange: (p0) => pickupctrl.autoComplete(p0, false),
                         ontap: () {
                           // ctrl.setTimelineIcon(false);
                           // placesCtrl.changeExpand(true);

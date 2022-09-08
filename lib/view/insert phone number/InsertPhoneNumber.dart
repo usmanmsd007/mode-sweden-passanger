@@ -1,15 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
+import 'package:uber_ui/model/otpvericationresponse.dart';
 import 'package:uber_ui/public/public.dart';
 import 'package:uber_ui/view/authScreens/sign_in_screen.dart';
 
 import '../../controller/authctrls/authCtrl.dart';
+import '../../controller/authctrls/otp.dart';
 import '../../widgets/mywidgets.dart';
 
 class InsertPhoneNumber extends StatelessWidget {
   InsertPhoneNumber({Key? key}) : super(key: key);
-  var authctrl = Get.find<AuthCtrl>();
+  var authctrl = Get.find<OtpVerificationCtrl>();
+
   // var ctrl = Get.find<InserPhoneController>();
   @override
   Widget build(BuildContext context) {
@@ -54,10 +57,13 @@ class InsertPhoneNumber extends StatelessWidget {
                   color: blue,
                   hasIcon: true,
                   text: 'Next',
-                  onpress: () {
-                    authctrl.sendOtpCode(
-                      phone: authctrl.phoneCtrl.text,
-                    );
+                  onpress: () async {
+                    await authctrl.getDeviceData().whenComplete(() =>
+                        authctrl.sendOtpCode(
+                            devicetoken: authctrl.deviceType,
+                            devType: authctrl.deviceType,
+                            devId: authctrl.deviceid,
+                            phone: authctrl.phoneCtrl.text.toString()));
                   },
                 ),
                 SizedBox(

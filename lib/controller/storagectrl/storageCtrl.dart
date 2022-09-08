@@ -1,6 +1,6 @@
-import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:uber_ui/model/signInResponse.dart';
+import 'package:uber_ui/public/public.dart';
 
 class StorageController {
   // var prefs=await SharedPreferences.getInstance();
@@ -11,7 +11,7 @@ class StorageController {
     var prefs = await SharedPreferences.getInstance();
     if (await prefs.setString('email', email) ||
         await prefs.setString('password', password) ||
-        await prefs.setString('token', email)) {
+        await prefs.setString(ACCESSTOKEN, token)) {
       return true;
     } else {
       return false;
@@ -25,6 +25,6 @@ class StorageController {
     return SignInResponse(
         email: prefs.getString('email') ?? "",
         password: prefs.getString('password') ?? "",
-        accessToken: prefs.getString('token') ?? "");
+        accessToken: prefs.getString(ACCESSTOKEN) ?? "");
   }
 }

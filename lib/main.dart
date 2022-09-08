@@ -3,6 +3,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:uber_ui/binding/bindings.dart';
 import 'package:uber_ui/firebase_options.dart';
 import 'package:uber_ui/view/Package%20Screen/screens/send_pkg_details.dart';
@@ -17,10 +18,9 @@ import 'package:uber_ui/view/edit_account/edit_account.dart';
 import 'package:uber_ui/view/edit_account/widgets/edit_accountwidgets.dart';
 import 'package:uber_ui/view/help/helpScreen.dart';
 import 'package:uber_ui/view/insert%20phone%20number/InsertPhoneNumber.dart';
-import 'package:uber_ui/view/pickup%20points/mapScreen.dart';
+import 'package:uber_ui/view/pickup%20points/polylineScreen.dart';
 import 'package:uber_ui/view/pickup%20points/pickuppoint.dart';
 import 'package:uber_ui/view/profile/profile.dart';
-import 'package:uber_ui/view/start%20screen/StartScreen.dart';
 import 'package:uber_ui/view/choosephone/choosePhone.dart';
 import 'package:uber_ui/view/start%20screen/loadingScreen.dart';
 import 'package:uber_ui/view/terms%20and%20privacy%20screen/termsandreviewprivacynotice.dart';
@@ -34,6 +34,7 @@ void main() async {
     AndroidGoogleMapsFlutter.useAndroidViewSurface = true;
   }
   MyBindings().dependencies();
+
   var authctrl = Get.find<AuthCtrl>();
 
   runApp(const MyApp());

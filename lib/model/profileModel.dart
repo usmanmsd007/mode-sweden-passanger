@@ -91,14 +91,14 @@ class ProfileModel {
   final String loginBy;
   final String email;
   final dynamic socialUniqueId;
-  final dynamic latitude;
-  final dynamic longitude;
+  final double latitude;
+  final double longitude;
   final dynamic stripeCustId;
   final int walletBalance;
   final String rating;
   final int otp;
   final dynamic language;
-  final dynamic qrcodeUrl;
+  final String qrcodeUrl;
   final dynamic referralUniqueId;
   final int referalCount;
   final DateTime updatedAt;
@@ -149,20 +149,20 @@ class ProfileModel {
         countryCode: json["country_code"],
         mobile: json["mobile"],
         picture: json["picture"],
-        deviceToken: json["token"],
+        deviceToken: json["device_token"],
         deviceId: json["device_id"],
         deviceType: json["device_type"],
         loginBy: json["login_by"],
         email: json["email"],
         socialUniqueId: json["social_unique_id"],
-        latitude: json["latitude"],
-        longitude: json["longitude"],
+        latitude: json["latitude"] ?? 0.0.toDouble(),
+        longitude: json["longitude"] ?? 0.0.toDouble(),
         stripeCustId: json["stripe_cust_id"],
         walletBalance: json["wallet_balance"],
         rating: json["rating"],
         otp: json["otp"],
         language: json["language"],
-        qrcodeUrl: json["qrcode_url"],
+        qrcodeUrl: json["qrcode_url"] ?? "",
         referralUniqueId: json["referral_unique_id"],
         referalCount: json["referal_count"],
         updatedAt: DateTime.parse(json["updated_at"]),
