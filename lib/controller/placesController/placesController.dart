@@ -21,6 +21,7 @@ class PlacesController extends GetxController {
   List<LatLng> polylineCoordinates = [];
   PolylinePoints polylinePoints = PolylinePoints();
   // String googleAPiKey = "Please provide your api key";
+  int cur_widget = 0;
   String? basicFare;
   String? premiumFare;
   String? comfortFare;
